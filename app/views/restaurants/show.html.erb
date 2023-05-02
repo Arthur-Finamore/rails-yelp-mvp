@@ -1,20 +1,21 @@
 <div class="card border m-3 p-3">
-
   <h3>Restaurant</h3>
 
   <%= render @restaurant %>
 
-  <%= link_to "add new review",  new_restaurant_review_path(:restaurant_id)  %>
+  <%= link_to "add new review", new_restaurant_review_path(@restaurant) %>
 
-  <ul>
-    <% @restaurant.reviews.each do |review| %>
-      <li>
-        <%= review.content %>
-        <%= link_to "remove", review_path(review), data: { turbo_method: :delete } %>
-      </li>
-    <% end %>
-  </ul>
+  <% @restaurant.reviews.each do |review| %>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Rating: <%= review.rating %></h5>
+        <p class="card-text"><%= review.content %></p>
+      </div>
+    </div>
+    <%= link_to "remove review", review_path(review), data: { turbo_method: :delete } %>
+  <% end %>
 </div>
+
 <div class="m-3">
   <%= link_to "Back to restaurants", restaurants_path, class: "btn btn-primary" %>
 </div>
